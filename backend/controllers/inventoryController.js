@@ -2,6 +2,10 @@ const asyncHandler = require("express-async-handler")
 
 const Inventory = require("../models/inventoryModel")
 
+const {tuluStockNumberGenerator} = require("../middleware/stockNumberMiddleware")
+
+const {optionhighlights} = require("../middleware/vehicleOptionsMiddleware")
+
 // desc: gets inventory
 // route: GET /api/getInventory
 // access: Private
@@ -18,15 +22,21 @@ const getInventory = asyncHandler(async (req, res) => {
 const addInventory = asyncHandler(async (req, res) => {
     if(!req.body.vin) {
         res.status(400)
-        throw new Error("Please add a text field")
+        throw new Error("FILL ALL FIELDS")
     }
+    const stockNumber = tuluStockNumberGenerator()
+    const highlightedOptions = optionhighlights(req.body.optionsList)
 
     const car = await Inventory.create({
         vin: req.body.vin,
         year: req.body.year,
         make: req.body.make,
         model: req.body.model,
-        trim: req.body.trim
+        trim: req.body.trim,
+        optionsList: JSON.parse(req.body.optionsList),
+        optionsHighlights: highlightedOptions, // NEEDS WORK ITS FUCKED.
+        tuluStockNum: stockNumber
+        
     })
 
     res.status(200).json(car)

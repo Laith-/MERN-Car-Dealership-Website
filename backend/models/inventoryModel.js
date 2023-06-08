@@ -21,6 +21,18 @@ const inventorySchema = mongoose.Schema(
         trim: {
             type: String,
             required: [true, "Please add a vehicle trim"]
+        },
+        tuluStockNum: {
+            type: String,
+            required: [false]
+        },
+        optionsList: {
+            type: Object,
+            required: [true, "Please add the vehicle options"]
+        },
+        optionsHighlights: {
+            type: Object,
+            required: [false]
         }
     },
     {
