@@ -1,10 +1,16 @@
 const optionhighlights = (optionList) => {
-    const keys = Object.entries(optionList) // Get all the keys from the optionhighlights object
-    console.log(keys)
-    const randomKey = keys[Math.floor(Math.random() * keys.length)] // Select a random key
+    /// this is where we will choose the options that get highlighted
+    /// right now it is just spitting out a random option from the json it is given
+    /// might be a bad idea to be doing this during the api call idk
 
-    const result = {}
-    result[randomKey] = optionList[randomKey] // Create a new JSON object with the random key and its corresponding value
+    const keys = Object.keys(optionList) 
+    const randomKey = keys[Math.floor(Math.random() * keys.length)] 
+    const randomValue = optionList[randomKey] 
+
+    const result = {
+      [randomKey]: randomValue 
+    }
+
     return result
 }
 

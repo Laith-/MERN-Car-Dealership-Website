@@ -2,6 +2,18 @@ const mongoose = require("mongoose")
 
 const inventorySchema = mongoose.Schema(
     {
+        dealerID: {
+            type: String,
+            required: [false] // set to false for development
+        },
+        tuluStockNum: {
+            type: String,
+            required: [false]
+        },
+        dealerStockNum: {
+            type: String,
+            required: [false] // set to false for development
+        },
         vin: {
             type: String,
             required: [true, "Please add a VIN number"]
@@ -22,18 +34,39 @@ const inventorySchema = mongoose.Schema(
             type: String,
             required: [true, "Please add a vehicle trim"]
         },
-        tuluStockNum: {
-            type: String,
-            required: [false]
-        },
         optionsList: {
             type: Object,
             required: [true, "Please add the vehicle options"]
         },
         optionsHighlights: {
             type: Object,
-            required: [false]
+            required: [true]
+        },
+        mileage: {
+            type: String,
+            required: [false] // set to false for development
+        },
+        fuelType: {
+            type: String,
+            required: [false] // set to false for development
+        },
+        engine: {
+            type: String,
+            required: [false] // set to false for development. ***only applies to gas vehicles
+        },
+        transmission: {
+            type: String,
+            required: [false] // set to false for development
+        },
+        driveTrain: {
+            type: String,
+            required: [false] // set to false for development
+        },
+        seating: {
+            type: String,
+            required: [false] // set to false for development
         }
+
     },
     {
         timestamps: true,

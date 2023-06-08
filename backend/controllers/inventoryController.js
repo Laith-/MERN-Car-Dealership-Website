@@ -25,18 +25,26 @@ const addInventory = asyncHandler(async (req, res) => {
         throw new Error("FILL ALL FIELDS")
     }
     const stockNumber = tuluStockNumberGenerator()
-    const highlightedOptions = optionhighlights(req.body.optionsList)
+    const parsedOptions = JSON.parse(req.body.optionsList)
+    const highlightedOptions = optionhighlights(parsedOptions)
 
     const car = await Inventory.create({
+        dealerID: req.body.dealerID,
+        tuluStockNum: stockNumber,
+        dealerStockNumber: req.body.dealerStockNumber,
         vin: req.body.vin,
         year: req.body.year,
         make: req.body.make,
         model: req.body.model,
         trim: req.body.trim,
-        optionsList: JSON.parse(req.body.optionsList),
-        optionsHighlights: highlightedOptions, // NEEDS WORK ITS FUCKED.
-        tuluStockNum: stockNumber
-        
+        mileage: req.body.mileage,
+        fuelType: req.body.fuelType,
+        engine: req.body.engine,
+        transmission: req.body.transmission,
+        driveTrain: req.body.driveTrain,
+        seating: req.body.seating,
+        optionsList: parsedOptions,
+        optionsHighlights: highlightedOptions
     })
 
     res.status(200).json(car)
