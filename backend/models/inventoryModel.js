@@ -2,6 +2,11 @@ const mongoose = require("mongoose")
 
 const inventorySchema = mongoose.Schema(
     {
+        user: {
+            type: mongoose.Schema.Types.ObjectID,
+            required: [true],
+            ref: "User"
+        },
         dealerID: {
             type: String,
             required: [false] // set to false for development

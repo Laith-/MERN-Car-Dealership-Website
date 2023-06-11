@@ -14,6 +14,7 @@ app.use(express.json.apply())
 app.use(express.urlencoded({extended: false}))
 
 app.use("/api/inventory", require("./routes/inventoryManagerRoutes"))
+app.use("/api/users", require("./routes/userRoutes"))
 
 app.use(errorHandler)
 
