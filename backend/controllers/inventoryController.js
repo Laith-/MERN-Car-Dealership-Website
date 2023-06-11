@@ -22,7 +22,7 @@ const getInventory = asyncHandler(async (req, res) => {
 // access: Private
 const addInventory = asyncHandler(async (req, res) => {
     // only dealer and admin can upload to DB
-    if(user.role !== "dealer" && user.role !== "admin") {
+    if(req.user.role !== "dealer" && req.user.role !== "admin") {
         res.status(401)
         throw new Error("Must be dealer")
     }
