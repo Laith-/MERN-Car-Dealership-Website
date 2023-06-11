@@ -8,9 +8,9 @@ const {checkPasswordReq, emailIsValid} = require("../middleware/registerationMid
 // route: POST /api/users
 // access: Public
 const registerUser = asyncHandler(async (req, res) => {
-    const {name, email, password} = req.body
+    const {firstName, lastName, email, password} = req.body
 
-    if(!name || !email || !password) {
+    if(!firstName || !lastName || !email || !password) {
         res.status(400)
         throw new Error("Please fill all fields")
     }
@@ -42,7 +42,8 @@ const registerUser = asyncHandler(async (req, res) => {
 
     // Creat User
     const user = await User.create({
-        name,
+        firstName,
+        lastName,
         email,
         password: hashedPassword,
     })
@@ -51,7 +52,8 @@ const registerUser = asyncHandler(async (req, res) => {
         res.status(201).json({
             message: "User succesfully registered!",
             _id: user.id,
-            name: user.name,
+            firstName: user.firstName,
+            lastName: user.lastName,
             email: user.email,
             token: generateToken(user._id),
             role: user.role
@@ -75,7 +77,8 @@ const loginUser = asyncHandler(async (req, res) => {
         res.json({
             message: "Login User",
             _id: user.id,
-            name: user.name,
+            firstName: user.firstName,
+            lastName: user.lastName,
             email: user.email,
             token: generateToken(user._id)
         })
@@ -89,12 +92,14 @@ const loginUser = asyncHandler(async (req, res) => {
 // route: GET /api/users/me
 // access: Private
 const getMe = asyncHandler(async (req, res) => {
-    const {_id, name, email} = await User.findById(req.user.id) //set in middleware
+    const {_id, firstName, lastName, email, role} = await User.findById(req.user.id) //set in middleware
 
     res.status(200).json({
         id: _id,
-        name,
-        email
+        firstName,
+        lastName,
+        email,
+        role
     })
 })
 
