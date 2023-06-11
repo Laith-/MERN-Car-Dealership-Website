@@ -21,6 +21,12 @@ const getInventory = asyncHandler(async (req, res) => {
 // route: POST /api/inventory
 // access: Private
 const addInventory = asyncHandler(async (req, res) => {
+    // only dealer and admin can upload to DB
+    if(user.role !== "dealer" && user.role !== "admin") {
+        res.status(401)
+        throw new Error("Must be dealer")
+    }
+
     if(!req.body.vin) {
         res.status(400)
         throw new Error("FILL ALL FIELDS")
@@ -71,8 +77,8 @@ const updateInventory = asyncHandler(async (req, res) => {
         throw new Error("User not found")
     }
     
-    // making sure logged in user matches the vehicle user
-    if(car.user.toString() !== user.id) {
+    // making sure logged in user matches the vehicle user or ADMIN
+    if(car.user.toString() !== user.id && user.role !== "admin") {
         res.status(401)
         throw new Error("User not authorized")
     }
@@ -102,8 +108,8 @@ const deleteInventory = asyncHandler(async (req, res) => {
         throw new Error("User not found")
     }
     
-    // making sure logged in user matches the vehicle user
-    if(car.user.toString() !== user.id) {
+    // making sure logged in user matches the vehicle user OR ADMIN
+    if(car.user.toString() !== user.id && user.role !== "admin") {
         res.status(401)
         throw new Error("User not authorized")
     }
