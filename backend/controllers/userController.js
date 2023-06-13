@@ -50,6 +50,7 @@ const registerUser = asyncHandler(async (req, res) => {
 
     if(user) {
         res.status(201).json({
+            // only need the token can get rid of rest of stuff
             message: "User succesfully registered!",
             _id: user.id,
             firstName: user.firstName,
@@ -92,15 +93,7 @@ const loginUser = asyncHandler(async (req, res) => {
 // route: GET /api/users/me
 // access: Private
 const getMe = asyncHandler(async (req, res) => {
-    const {_id, firstName, lastName, email, role} = await User.findById(req.user.id) //set in middleware
-
-    res.status(200).json({
-        id: _id,
-        firstName,
-        lastName,
-        email,
-        role
-    })
+    res.status(200).json(req.user)
 })
 
 // Generate JWT token

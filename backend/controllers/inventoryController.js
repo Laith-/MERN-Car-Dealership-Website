@@ -69,16 +69,16 @@ const updateInventory = asyncHandler(async (req, res) => {
         throw new Error("Car not found")
     }
 
-    const user = await User.findById(req.user.id)
+    ////////const user = await User.findById(req.user.id)
 
     // checking for user
-    if(!user) {
+    if(!req.user) {
         res.status(401)
         throw new Error("User not found")
     }
     
     // making sure logged in user matches the vehicle user or ADMIN
-    if(car.user.toString() !== user.id && user.role !== "admin") {
+    if(car.user.toString() !== req.user.id && req.user.role !== "admin") {
         res.status(401)
         throw new Error("User not authorized")
     }
@@ -100,16 +100,16 @@ const deleteInventory = asyncHandler(async (req, res) => {
         throw new Error("Car not found")
     }
 
-    const user = await User.findById(req.user.id)
+    /////////const user = await User.findById(req.user.id)
 
     // checking for user
-    if(!user) {
+    if(!req.user) {
         res.status(401)
         throw new Error("User not found")
     }
     
     // making sure logged in user matches the vehicle user OR ADMIN
-    if(car.user.toString() !== user.id && user.role !== "admin") {
+    if(car.user.toString() !== req.user.id && req.user.role !== "admin") {
         res.status(401)
         throw new Error("User not authorized")
     }
