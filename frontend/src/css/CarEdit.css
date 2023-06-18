@@ -1,0 +1,21 @@
+.car-edit-container {
+    text-align: center; /* Center-align the container */
+  }
+  
+  .field-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .field-label {
+    min-width: 100px;
+  }
+  
+  .edit-input {
+    border: 1px solid #ccc;
+    padding: 5px;
+    border-radius: 3px;
+    width: 200px;
+  }
+  

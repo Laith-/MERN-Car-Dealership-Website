@@ -26,7 +26,7 @@ const userSchema = mongoose.Schema({
 },
 {
     timestamps: true,
-    collection: 'Tulu Users Database'
+    collection: process.env.USERS_DB_NAME
 })
 
 module.exports = mongoose.model("User", userSchema)

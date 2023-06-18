@@ -1,19 +1,19 @@
 import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from "react-router-dom"
 import Sidebar from "../components/Sidebar"
 
 function Dashboard() {
-  const navigate = useNavigate()
+  // checking if user is logged in
   const { user } = useSelector((state) => state.auth)
-
+  const navigate = useNavigate()
+  const location = useLocation()
+  
   useEffect(() => {
-    // Check if the user is logged in
     if (!user) {
-      // Redirect to the login page
-      navigate('/login')
+      navigate('/login', { state: { from: location.pathname } })
     }
-  }, [user, navigate])
+  }, [user, navigate, location])
 
   return (
     <div>

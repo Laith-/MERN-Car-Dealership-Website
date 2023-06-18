@@ -12,6 +12,7 @@ function Login() {
     password: "",
   })
 
+
   const { email, password } = formData
 
   const navigate = useNavigate()
@@ -23,17 +24,19 @@ function Login() {
   )
 
   useEffect(() => {
+    const from = location.state?.from 
+
     if (isError) {
       toast.error(message)
     }
 
     if (isSuccess || user) {
-      const from = location.state?.from || "/"
-      navigate(from) // Redirect back to the original location
+    console.log(from)
+    navigate(from || "/") // Redirect back to the original location OR "/"
     }
 
     dispatch(reset())
-  }, [user, isError, isSuccess, message, navigate, dispatch, location])
+  }, [user, isError, isSuccess, message, location, navigate, dispatch])
 
   const onChange = (e) => {
     setFormData((prevState) => ({

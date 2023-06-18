@@ -13,15 +13,19 @@ const inventorySchema = mongoose.Schema(
         },
         tuluStockNum: {
             type: String,
-            required: [false]
+            required: [true]
         },
         dealerStockNum: {
             type: String,
             required: [false] // set to false for development
         },
+        published: {
+            type: Boolean,
+            required: [true]
+        },
         vin: {
             type: String,
-            required: [true, "Please add a VIN number"]
+            required: [false, "Please add a VIN number"]
         },
         year: {
             type: String,
@@ -29,23 +33,23 @@ const inventorySchema = mongoose.Schema(
         },
         make: {
             type: String,
-            required: [true, "Please add a vehicle make"]
+            required: [false, "Please add a vehicle make"]
         },
         model: {
             type: String,
-            required: [true, "Please add a vehicle model"]
+            required: [false, "Please add a vehicle model"]
         },
         trim: {
             type: String,
-            required: [true, "Please add a vehicle trim"]
+            required: [false, "Please add a vehicle trim"]
         },
         optionsList: {
             type: Object,
-            required: [true, "Please add the vehicle options"]
+            required: [false, "Please add the vehicle options"]
         },
         optionsHighlights: {
             type: Object,
-            required: [true]
+            required: [false]
         },
         mileage: {
             type: String,
@@ -75,7 +79,7 @@ const inventorySchema = mongoose.Schema(
     },
     {
         timestamps: true,
-        collection: 'Tulu Vehicles Inventory'
+        collection: process.env.INVENTORY_DB_NAME
     })
 
     module.exports = mongoose.model("Inventory", inventorySchema)
