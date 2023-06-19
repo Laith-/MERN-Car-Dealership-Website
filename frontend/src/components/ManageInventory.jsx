@@ -11,6 +11,7 @@ function ManageInventory() {
   const { cars, isLoading, isError, message } = useSelector((state) => state.cars);
 
   useEffect(() => {
+    document.title = 'Inventory Manager - Tulu Canada'
     if (isError) {
       console.log(message);
     }

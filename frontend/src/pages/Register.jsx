@@ -23,6 +23,7 @@ function Register() {
   const {user, isLoading, isError, isSuccess, message} = useSelector((state) => state.auth)
 
   useEffect(() => {
+    document.title = 'Register - Tulu Canada'
     if(isError) {
       toast.error(message)
     }

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { getPublishedCar, editCar } from '../features/cars/carSlice';
+import { getCars, editCar } from '../features/cars/carSlice';
 import Spinner from "../components/Spinner";
 import '../css/CarEdit.css'; // Import the CSS file for styling
 
@@ -11,7 +11,8 @@ function CarEdit() {
   const car = useSelector(state => state.cars.cars);
 
   useEffect(() => {
-    dispatch(getPublishedCar(itemId));
+    document.title = 'Edit Car - Tulu Canada'
+    dispatch(getCars(itemId));
   }, [dispatch, itemId]);
 
   const [editedFields, setEditedFields] = useState(car ? { ...car } : {})
@@ -49,7 +50,7 @@ function CarEdit() {
     if (!car) {
       return null; // or a loading state, depending on your requirements
     }
-    
+
     return Object.keys(car).map(key => (
       <div key={key} className="field-container">
         <strong>{key}: </strong>

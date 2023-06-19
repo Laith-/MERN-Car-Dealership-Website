@@ -10,6 +10,7 @@ function Dashboard() {
   const location = useLocation()
   
   useEffect(() => {
+    document.title = 'Dashboard - Tulu Canada'
     if (!user) {
       navigate('/login', { state: { from: location.pathname } })
     }

@@ -5,7 +5,6 @@ import '../css/InventoryManagerGrid.css';
 
 function CarItem({ car, editMode, selected, onItemClick }) {
   const [isSelected, setIsSelected] = useState(selected);
-  ///const editMode = true
 
   useEffect(() => {
     setIsSelected(selected);
@@ -18,23 +17,19 @@ function CarItem({ car, editMode, selected, onItemClick }) {
     }
   };
 
-  const carItemClassName = isSelected ? 'car-item selected' : 'car-item';
+  const carItemClassName = isSelected ? 'car-item selected' : 'car-item'
+  const backgroundClass = car.published ? 'light-green' : 'light-red';
 
   return (
-    <div
-      className={carItemClassName}
-      onClick={handleItemClick}
-    >
+    <div className={`${carItemClassName} ${backgroundClass}`} onClick={handleItemClick}>
       <img src={placeHolderImage} alt="Car" className="car-image" />
       <div className="car-divider"></div>
       <h2 className="car-title">{car.year} {car.make} {car.model}</h2>
-
       <p className="stock-number">Stock #{car.tuluStockNum || 'Tulu'}</p>
       <div className="car-details">Price: ${car.price || '24,295'}</div>
       <div className="car-details">KM: {car.color || '140,543'}km</div>
       <div className="car-details">Price: ${car.price || '24,295'}</div>
       <div className="car-details">KM: {car.color || '140,543'}km</div>
-
       <div className="car-buttons">
         <Link
           to={`/vehicle/${car.tuluStockNum}`}

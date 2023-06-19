@@ -17,6 +17,7 @@ function InventoryManager() {
   const location = useLocation()
 
   useEffect(() => {
+    document.title = 'Inventory Manager - Tulu Canada'
     if (!user) {
       navigate('/login', { state: { from: location.pathname } })
     }

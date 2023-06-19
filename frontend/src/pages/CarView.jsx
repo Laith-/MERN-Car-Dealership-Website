@@ -10,6 +10,7 @@ function CarView() {
   const car = useSelector(state => state.cars.cars);
 
   useEffect(() => {
+    document.title = 'View Car - Tulu Canada'
     dispatch(getPublishedCar(itemId));
   }, [dispatch, itemId]);
 

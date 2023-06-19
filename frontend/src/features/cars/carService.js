@@ -15,13 +15,18 @@ const createCar = async (carData, token) => {
 }
 
 // Get dealer inventory
-const getCars = async (token) => {
+const getCars = async (carId, token) => {
     const config = {
         headers: {
             Authorization: `Bearer ${token}`
         }
     }
-    const response = await axios.get(API_URL, config)
+
+    let url = API_URL
+    if (carId) {
+        url += `${carId}`;
+    }
+    const response = await axios.get(url, config)
 
     return response.data
 }

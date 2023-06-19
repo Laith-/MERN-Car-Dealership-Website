@@ -22,10 +22,10 @@ export const createCar = createAsyncThunk("inventory/create", async(carData, thu
 })
 
 // get all dealer inventory
-export const getCars = createAsyncThunk("inventory/getAll", async (_, thunkAPI) => {
+export const getCars = createAsyncThunk("inventory/getAll", async (carId, thunkAPI) => {
     try {
         const token = thunkAPI.getState().auth.user.token
-        return await carService.getCars(token)
+        return await carService.getCars(carId, token)
 
     } catch (error) {
         const message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString()
@@ -125,7 +125,21 @@ export const carSlice = createSlice({
             .addCase(editCar.fulfilled, (state, action) => {
                 state.isLoading = false
                 state.isSuccess = true
+                //const carIndex = state.cars.findIndex(car => car._id === action.payload._id)
                 //state.cars = action.payload 
+                if (!Array.isArray(state.cars)) {
+                  state.cars = action.payload;
+                } else {
+                  const updatedCars = state.cars.map((car) => {
+                    if (car._id === action.payload._id) {
+                      return action.payload; // Replace the car with the same _id
+                    }
+                    return car; // Keep the car unchanged
+                  });
+              
+                  state.cars = updatedCars;
+                }
+                
               })
             .addCase(editCar.rejected, (state, action) => {
                 state.isLoading = false

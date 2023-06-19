@@ -103,9 +103,9 @@ const updateInventory = asyncHandler(async (req, res) => {
     }
 
     const updatedInventory = await Inventory.findByIdAndUpdate(car._id, req.body)
-    //const updatedCar = await Inventory.findByIdAndUpdate(car._id, req.body) // running twice to get back the update document
+    //const cars = await Inventory.findById(car._id) // running twice to get back the update document
 
-    res.status(200).json(updatedInventory)
+    res.status(200).json(await Inventory.findById(car._id))
 })
 
 // desc: deletes inventory
@@ -146,13 +146,20 @@ const getPublicInventory = asyncHandler(async (req, res) => {
         res.status(404);
         throw new Error("Car not found");
       }
-      res.status(200).json(car);
+      // Remove the 'published' property from the car object
+      const { published, ...filteredCar } = car.toObject();
+      res.status(200).json(filteredCar);
     } else {
       const cars = await Inventory.find({ published: true });
-  
-      res.status(200).json(cars);
+      // Remove the 'published' property from each car object
+      const filteredCars = cars.map(car => {
+        const { published, ...filteredCar } = car.toObject();
+        return filteredCar;
+      });
+      res.status(200).json(filteredCars);
     }
   });
+  
   
 
 

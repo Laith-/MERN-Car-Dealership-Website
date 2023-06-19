@@ -24,6 +24,7 @@ function Login() {
   )
 
   useEffect(() => {
+    document.title = 'Login - Tulu Canada'
     const from = location.state?.from 
 
     if (isError) {
